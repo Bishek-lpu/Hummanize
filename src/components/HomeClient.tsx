@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ShieldAlert, Sparkles, Copy, RefreshCw, CheckCircle2, AlertCircle, Check } from 'lucide-react';
+import { ShieldAlert, Sparkles, Copy, RefreshCw, CheckCircle2, AlertCircle, Check, Briefcase, GraduationCap, PenTool, Globe, Zap, XCircle, MessageSquare, Megaphone } from 'lucide-react';
 import Link from 'next/link';
 
 type Tab = 'detect' | 'humanize';
@@ -301,6 +301,96 @@ export default function HomeClient({ seoContent }: { seoContent?: SeoContent }) 
             <p>
               If you are searching for a <strong>Turnitin AI detector alternative</strong> or a way to ensure your essays and articles pass strict <strong>AI plagiarism detectors</strong>, Hummanize is built for you. We provide a <strong>free AI humanizer</strong> tier so you can rewrite AI text to human text instantly.
             </p>
+          </section>
+
+          {/* New Trust & Multilingual Section */}
+          <section className="seo-content trust-section">
+            <h2 className="text-center section-title">Bypasses All Major AI Detectors</h2>
+            <div className="trust-grid">
+              <div className="trust-badge">Turnitin</div>
+              <div className="trust-badge">GPTZero</div>
+              <div className="trust-badge">Originality.ai</div>
+              <div className="trust-badge">Copyleaks</div>
+              <div className="trust-badge">Crossplag</div>
+              <div className="trust-badge">Surfer SEO</div>
+            </div>
+            
+            <div className="multilingual-banner mt-4">
+              <Globe className="text-accent" size={24} />
+              <span><strong>Multilingual Support:</strong> Humanize AI text in English, Spanish, French, German, Portuguese, and 30+ other languages.</span>
+            </div>
+          </section>
+
+          {/* New Comparison Section to beat Quillbot/HumanizeAI */}
+          <section className="seo-content comparison-section">
+            <h2 className="text-center section-title">Why We Are Better Than The Competition</h2>
+            <p className="text-center section-subtitle">Don't settle for basic rewriting tools. See how Hummanize outperforms QuillBot and HumanizeAI.pro.</p>
+            
+            <div className="comparison-table-wrapper">
+              <table className="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th className="highlight-col">Hummanize (Our Tool)</th>
+                    <th>Grammarly, QuillBot & Others</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Bypasses Turnitin v2 & Originality 3.0</td>
+                    <td className="highlight-col"><CheckCircle2 className="success-icon" size={20} /> 100% Success Rate</td>
+                    <td><XCircle className="error-icon" size={20} /> Often Flagged</td>
+                  </tr>
+                  <tr>
+                    <td>SEO Keyword Retention</td>
+                    <td className="highlight-col"><CheckCircle2 className="success-icon" size={20} /> Retains exact keywords</td>
+                    <td><XCircle className="error-icon" size={20} /> Destroys SEO intent</td>
+                  </tr>
+                  <tr>
+                    <td>Grammar & Flow</td>
+                    <td className="highlight-col"><CheckCircle2 className="success-icon" size={20} /> Native English Quality</td>
+                    <td><XCircle className="error-icon" size={20} /> Awkward "Spun" Text</td>
+                  </tr>
+                  <tr>
+                    <td>Processing Speed</td>
+                    <td className="highlight-col"><Zap className="success-icon" size={20} /> Instant API</td>
+                    <td><XCircle className="error-icon" size={20} /> Slow Queues</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* New Audience Section */}
+          <section className="seo-content audience-section">
+            <h2 className="text-center section-title">Who Uses Hummanize?</h2>
+            <div className="seo-grid">
+              <div className="seo-card">
+                <Briefcase size={32} className="seo-icon" />
+                <h3>Job Seekers & Professionals</h3>
+                <p>AI-written cover letters and emails feel generic. Our Humanizer ensures your professional writing conveys true credibility, authority, and personal touch.</p>
+              </div>
+              <div className="seo-card">
+                <GraduationCap size={32} className="seo-icon" />
+                <h3>Students & Academics</h3>
+                <p>Refine drafts for essays or papers to improve clarity and flow while ensuring your work passes institutional AI checkers like Turnitin seamlessly.</p>
+              </div>
+              <div className="seo-card">
+                <PenTool size={32} className="seo-icon" />
+                <h3>SEO Writers & Bloggers</h3>
+                <p>Search engines penalize text that looks mass-produced by AI. We refine your ChatGPT output into natural writing that performs better for readers and rankings.</p>
+              </div>
+              <div className="seo-card">
+                <Megaphone size={32} className="seo-icon" />
+                <h3>Marketers & Agencies</h3>
+                <p>Fine-tune AI-generated ad copy, social media posts, and campaign materials. Ensure your messaging resonates with human emotion rather than reading like a template.</p>
+              </div>
+              <div className="seo-card">
+                <MessageSquare size={32} className="seo-icon" />
+                <h3>Customer Support</h3>
+                <p>Humanize AI-written email responses or Zendesk macros to ensure they’re clear, empathetic, and conversational, improving your overall customer satisfaction score.</p>
+              </div>
+            </div>
           </section>
 
           {/* SEO FAQ Section */}

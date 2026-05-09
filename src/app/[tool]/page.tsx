@@ -3,6 +3,8 @@ import { seoData } from '../data/seo';
 import { notFound } from 'next/navigation';
 import HomeClient from '@/components/HomeClient';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://hummanize.ai';
+
 interface Props {
   params: Promise<{ tool: string }>;
 }
@@ -15,9 +17,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Not Found' };
   }
 
+  const canonicalUrl = `${baseUrl}/${toolData.canonicalSlug}`;
+
   return {
     title: `${toolData.title} | Hummanize`,
     description: toolData.metaDesc,
+    keywords: toolData.keywords,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: toolData.title,
+      description: toolData.metaDesc,
+      url: canonicalUrl,
+      siteName: 'Hummanize',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: toolData.title,
+      description: toolData.metaDesc,
+    },
   };
 }
 
@@ -33,6 +51,5 @@ export default async function ToolPage({ params }: Props) {
     notFound();
   }
 
-  // We reuse the main application logic, passing down the dynamic SEO content
   return <HomeClient seoContent={toolData} />;
 }

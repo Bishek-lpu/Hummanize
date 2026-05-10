@@ -6,9 +6,23 @@ import Link from 'next/link';
 
 type Tab = 'detect' | 'humanize';
 
+interface SentenceRisk {
+  text: string;
+  risk: 'high' | 'medium' | 'low';
+}
+
 interface DetectionResult {
   aiProbability: number;
   analysis: string;
+  detectedPatterns?: string[];
+  sentences?: SentenceRisk[];
+}
+
+interface HumanizeMeta {
+  fingerprintsFound: number;
+  toneTarget: string;
+  inputLength: number;
+  outputLength: number;
 }
 
 interface SeoContent {
@@ -24,6 +38,7 @@ export default function HomeClient({ seoContent }: { seoContent?: SeoContent }) 
   
   const [detectionResult, setDetectionResult] = useState<DetectionResult | null>(null);
   const [humanizedText, setHumanizedText] = useState<string>('');
+  const [humanizeMeta, setHumanizeMeta] = useState<HumanizeMeta | null>(null);
   const [copied, setCopied] = useState(false);
 
   const handleProcess = async () => {
@@ -55,10 +70,14 @@ export default function HomeClient({ seoContent }: { seoContent?: SeoContent }) 
         setDetectionResult({
           aiProbability: data.aiProbability,
           analysis: data.analysis,
+          detectedPatterns: data.detectedPatterns ?? [],
+          sentences: data.sentences ?? [],
         });
         setHumanizedText('');
+        setHumanizeMeta(null);
       } else {
         setHumanizedText(data.humanizedText);
+        setHumanizeMeta(data.meta ?? null);
         setDetectionResult(null);
       }
     } catch (err: any) {
@@ -210,8 +229,16 @@ export default function HomeClient({ seoContent }: { seoContent?: SeoContent }) 
                     <div className="placeholder-content">
                       <div className="loader loader-dark" style={{ width: '40px', height: '40px', borderWidth: '3px' }}></div>
                       <p style={{ color: 'var(--text-secondary)' }}>
-                        {activeTab === 'detect' ? 'Running advanced Turnitin & GPTZero level detection...' : 'Applying human-like burstiness to bypass detectors...'}
+                        {activeTab === 'detect'
+                          ? 'Running forensic AI pattern analysis...'
+                          : '🕵️ Ghost Mode active — analyzing AI fingerprints and rewriting...'}
                       </p>
+                      {activeTab === 'humanize' && (
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
+                          Pass 1: Deep analysis with adaptive thinking<br/>
+                          Pass 2: Surgical rewrite in progress...
+                        </p>
+                      )}
                     </div>
                   )}
 
@@ -237,7 +264,33 @@ export default function HomeClient({ seoContent }: { seoContent?: SeoContent }) 
                           </div>
                         </div>
                       </div>
-                      
+
+                      {/* Detected AI Patterns */}
+                      {detectionResult.detectedPatterns && detectionResult.detectedPatterns.length > 0 && (
+                        <div className="patterns-list">
+                          <h4>AI Patterns Detected</h4>
+                          <div className="patterns-tags">
+                            {detectionResult.detectedPatterns.map((p, i) => (
+                              <span key={i} className="pattern-tag">{p}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Sentence-level Risk */}
+                      {detectionResult.sentences && detectionResult.sentences.length > 0 && (
+                        <div className="sentence-breakdown">
+                          <h4>Sentence Analysis</h4>
+                          {detectionResult.sentences.map((s, i) => (
+                            <div key={i} className={`sentence-row risk-${s.risk}`}>
+                              <span className="risk-dot"></span>
+                              <span className="sentence-text">{s.text.slice(0, 90)}{s.text.length > 90 ? '…' : ''}</span>
+                              <span className={`risk-label risk-label-${s.risk}`}>{s.risk}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
                       <div className="analysis-text">
                         <h4 style={{ marginBottom: '0.75rem', color: 'var(--text-primary)', fontSize: '1rem' }}>Detailed Analysis</h4>
                         {detectionResult.analysis}
@@ -247,6 +300,14 @@ export default function HomeClient({ seoContent }: { seoContent?: SeoContent }) 
 
                   {!loading && activeTab === 'humanize' && humanizedText && (
                     <div className="humanized-output">
+                      {/* Ghost Mode Meta Stats */}
+                      {humanizeMeta && (
+                        <div className="ghost-meta">
+                          <span className="ghost-badge">🕵️ Ghost Mode</span>
+                          <span>{humanizeMeta.fingerprintsFound} AI patterns removed</span>
+                          <span>Tone: {humanizeMeta.toneTarget}</span>
+                        </div>
+                      )}
                       <button className="copy-btn" onClick={handleCopy} title="Copy to clipboard">
                         {copied ? <CheckCircle2 size={16} color="var(--success-color)" /> : <Copy size={16} />}
                       </button>
